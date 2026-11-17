@@ -1,6 +1,14 @@
 # PromptEdit — Pixelforge image generation
 
-PromptEdit lets signed-in users write a prompt, pick a size, quality and optional reference image URLs, see a live price range, and generate an image through the Pixelforge API. It is built with Laravel 13, Inertia 3 and Vue 3, and was developed locally with [Laravel Herd](https://herd.laravel.com), which serves it at `http://promptedit.test`. Every request is saved first and then sent to Pixelforge by a queued job, using the generation's id as the idempotency key, so rate limits, overloads and network errors are retried safely. Results arrive through signed webhooks, which are de-duplicated by event id and only ever move a generation forward, and a scheduled command polls Pixelforge for any generation whose webhook never arrived. Money is stored as integer nanodollars: users pay Pixelforge's exact cost (from the generation's own token usage and rates) plus 25%, charged once on success, while failed generations are free. Each user has a credit balance with a "Buy credits" button, and the maximum estimate of every running image is held so nobody can generate more than they can afford. The Library shows live status, estimated and actual cost, and a detail page with the full token-by-token cost breakdown, and failed generations can be retried with one click. Admins get an operator report of charges, provider cost and profit per day and per user, checked live against Pixelforge's `GET /v1/usage`.
+PromptEdit lets signed-in users write a prompt, pick a size, quality and optional reference image URLs, see a live price range, and generate an image through the Pixelforge API. 
+
+It is built with Laravel 13, Inertia 3 and Vue 3, and was developed locally with [Laravel Herd](https://herd.laravel.com), which serves it at `http://promptedit.test`. 
+
+Every request is saved first and then sent to Pixelforge by a queued job, using the generation's id as the idempotency key, so rate limits, overloads and network errors are retried safely. Results arrive through signed webhooks, which are de-duplicated by event id and only ever move a generation forward, and a scheduled command polls Pixelforge for any generation whose webhook never arrived. 
+
+Money is stored as integer nanodollars: users pay Pixelforge's exact cost (from the generation's own token usage and rates) plus 25%, charged once on success, while failed generations are free. Each user has a credit balance with a "Buy credits" button, and the maximum estimate of every running image is held so nobody can generate more than they can afford. The Library shows live status, estimated and actual cost, and a detail page with the full token-by-token cost breakdown, and failed generations can be retried with one click. 
+
+Admins get an operator report of charges, provider cost and profit per day and per user, checked live against Pixelforge's `GET /v1/usage`.
 
 The deployed app is on Laravel Forge at **https://promptedit-ejezmnma.on-forge.com** — log in with **tasevski.igor@live.com** / **11221122**.
 
