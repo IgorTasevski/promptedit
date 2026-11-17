@@ -7,6 +7,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+    --color-studio: #0e0e10;
+    --color-studio-surface: #17171a;
+    --color-studio-raised: #1d1d22;
+    --color-studio-line: #2e2e33;
+    --color-studio-edge: #6b6b73;
+    --color-studio-muted: #8b8b93;
+    --color-studio-text: #ededed;
+    --color-lime: #c6f432;
+    --color-lime-soft: #e3ff8a;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
 @theme inline {
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
@@ -140,4 +154,24 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    button:not(:disabled),
+    [role='button']:not([aria-disabled='true']) {
+        @apply cursor-pointer;
+    }
+
+    button:disabled {
+        @apply cursor-not-allowed;
+    }
+}
+
+@utility focus-ring {
+    &:focus-visible {
+        outline: 2px solid var(--color-lime);
+        outline-offset: 2px;
+    }
+}
+
+@utility link-lime {
+    @apply rounded-sm font-semibold text-lime underline-offset-4 focus-ring transition-colors hover:text-lime-soft hover:underline;
 }
